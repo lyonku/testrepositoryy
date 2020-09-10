@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="picture">
+        <img class="ball" id="ball" src="football_PNG52789.png" />
+        <img class="pole" id="pole" src="soccer-field-307046_960_720.png" />
+        <input type="button" class="button" value="Запустить мячик" onClick="football()">
+    </div>
+    <script type="text/javascript">
+        const SPEED = 4;
+
+        const ball = document.getElementById("ball");
+        const pole = document.getElementById("pole");
+
+        const destinationX = pole.width / 2 - ball.width / 2 - 3;
+        const destinationY = 0;
+
+        function football() {
+            const ballY = ball.getClientRects()[0].top;
+            const ballX = ball.getClientRects()[0].left;
+
+            if (ballX !== destinationX || ballY !== destinationY) {
+                let deltaX = (Math.abs(destinationX - ballX) > SPEED) ? SPEED : Math.abs(destinationX - ballX);
+                let deltaY = (destinationY - ballY < SPEED) ? SPEED : destinationY + ballY;
+                ball.style.left = destinationX < ballX ? ballX - deltaX : ballX + deltaX;
+                ball.style.top = ballY - deltaY;
+                setTimeout(football, 20);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
